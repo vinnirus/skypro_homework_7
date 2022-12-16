@@ -3,10 +3,14 @@ import json
 
 
 def load_students():
+    """
+    Загружает список студентов из файла
+    :return: data json
+    """
     students_rel_filename = 'data/students.json'
     rel_path_to_students_file = os.path.join(os.path.pardir, students_rel_filename)
 
-    with open(rel_path_to_students_file, 'r') as students_file:
+    with open(rel_path_to_students_file, 'r', encoding='utf-8') as students_file:
         students_file_text = students_file.read()
         students_json = json.loads(students_file_text)
 
@@ -14,10 +18,14 @@ def load_students():
 
 
 def load_professions():
+    """
+    Загружает список профессий из файла
+    :return: data json
+    """
     professions_rel_filename = 'data/professions.json'
     rel_path_to_professions_file = os.path.join(os.path.pardir, professions_rel_filename)
 
-    with open(rel_path_to_professions_file, 'r') as rofessions_file:
+    with open(rel_path_to_professions_file, 'r', encoding='utf-8') as rofessions_file:
         professions_file_text = rofessions_file.read()
         professions_json = json.loads(professions_file_text)
 
@@ -25,6 +33,11 @@ def load_professions():
 
 
 def get_student_by_pk(pk):
+    """
+    Получает словарь с данными студента по его pk
+    :param pk: int
+    :return: dict
+    """
     students_data_json = load_students()
 
     for row in students_data_json:
@@ -33,6 +46,11 @@ def get_student_by_pk(pk):
 
 
 def get_profession_by_title(title):
+    """
+    Получает словарь с инфо о профе по названию
+    :param title: str
+    :return: dict
+    """
     professions_data_json = load_professions()
 
     for row in professions_data_json:
@@ -41,6 +59,14 @@ def get_profession_by_title(title):
 
 
 def check_fitness(student, profession):
+    """"
+    Функция получает студента и профессию, возвращала бы словарь типа:
+    {
+        "has": ["Python", "Linux"],
+        "lacks": ["Docker, SQL"],
+        "fit_percent": 50
+    }
+    """
     student_json = get_student_by_pk(student)
     profession_json = get_profession_by_title(profession)
 
